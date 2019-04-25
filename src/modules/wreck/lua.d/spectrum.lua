@@ -24,20 +24,12 @@ function rexecd_init ()
     -- when flux instance runs >1 broker per node.
     env['OMPI_MCA_orte_tmpdir_base'] = rundir
 
-    -- Assumes the installation paths of Spectrum MPI on LLNL's Sierra
     env['OMPI_MCA_osc'] = "pt2pt"
     env['OMPI_MCA_pml'] = "yalla"
     env['OMPI_MCA_btl'] = "self"
-    env['MPI_ROOT'] = "/opt/ibm/spectrum_mpi"
-    env['OPAL_LIBDIR'] = "/opt/ibm/spectrum_mpi/lib"
     env['OMPI_MCA_coll_hcoll_enable'] = '0'
-
     env['PMIX_SERVER_URI'] = nil
     env['PMIX_SERVER_URI2'] = nil
-
-    -- Help find libcollectives.so
-    prepend_path ('LD_LIBRARY_PATH', '/opt/ibm/spectrum_mpi/lib/pami_port')
-    prepend_path ('LD_PRELOAD', '/opt/ibm/spectrum_mpi/lib/libpami_cudahook.so')
 end
 
 function rexecd_task_init ()
