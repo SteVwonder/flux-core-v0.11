@@ -1,7 +1,7 @@
 -- Set environment specific to spectrum_mpi (derived from openmpi)
 --
 
-if wreck:getopt ("mpi") ~= "spectrum" then return end
+if wreck:getopt ("mpi") == "nospectrum" then return end
 
 local posix = require 'posix'
 
@@ -28,8 +28,6 @@ function rexecd_init ()
     env['OMPI_MCA_pml'] = "yalla"
     env['OMPI_MCA_btl'] = "self"
     env['OMPI_MCA_coll_hcoll_enable'] = '0'
-    env['PMIX_SERVER_URI'] = nil
-    env['PMIX_SERVER_URI2'] = nil
 end
 
 function rexecd_task_init ()

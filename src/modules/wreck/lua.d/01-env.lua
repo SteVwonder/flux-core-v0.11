@@ -2,12 +2,22 @@
 --
 --  Set WRECK environment from environment table [environ]
 --
+local function starts_with(str, start)
+   return str:sub(1, #start) == start
+end
+
 local function rexec_set_env (environ)
     if not environ then return end
 
     local env = wreck.environ
     for k,v in pairs (environ) do
-        env[k] = v
+       if ((
+             not starts_with(k, "PMIX_") and
+             not starts_with(k, "OMPI_")
+           ) or wreck:getopt ("mpi") == "nospectrum"
+       ) then
+          env[k] = v
+       end
     end
 end
 --
